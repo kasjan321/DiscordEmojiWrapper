@@ -16,14 +16,12 @@ response = requests.get(discordapi + "guilds/%s/emojis"%args.guild, headers=head
 j = json.loads(response.text)
 i = 0
 os.mkdir(path)
-while(i < 51):
+numberofemojis =len(j)
+while(i < numberofemojis or  i == numberofemojis):
     id = j[i]['id']
     name = j[i]['name']
     response2 = requests.get("https://cdn.discordapp.com/emojis/%s.png"%id, stream=True)
     
     with open(path + '%s.png'%name, 'wb') as out_file:
         shutil.copyfileobj(response2.raw,out_file)
-    i += 1
-    
-
-     
+    i += 1  
